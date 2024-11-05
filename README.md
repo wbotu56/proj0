@@ -1,4 +1,4 @@
-# v0.01 - docker containers within same network, app is launched via python from entrypoint
+# v0.01 - docker containers within same network, app is launched via python from entrypoint, no persistent data, barebones edition
 ## How to start app:
 - replace 'placeholder' values to the actual ones in \*.env.template files
 - `docker build -t db -f pgdb.Dockerfile .`
