@@ -2,9 +2,7 @@ name: proj0
 
 services:
   db:
-    build:
-      context: .
-      dockerfile: pgdb.Dockerfile
+    image: postgres:17-alpine
     environment:
       POSTGRES_DB: app
       POSTGRES_PASSWORD: /run/secrets/db_password
