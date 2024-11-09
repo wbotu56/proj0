@@ -1,6 +1,7 @@
 # syntax=docker/dockerfile:1
 FROM python:3.8-alpine
-EXPOSE 8000
+LABEL org.opencontainers.image.source=https://github.com/wbotu56/proj0
+LABEL org.opencontainers.image.description="proj0 app container image"
 WORKDIR /app
 COPY app/ .
 RUN apk add --no-cache libwebp-dev jpeg-dev zlib-dev postgresql-libs \
