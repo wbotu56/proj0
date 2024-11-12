@@ -32,15 +32,23 @@ spec:
           livenessProbe:
             exec:
               command:
-                - /bin/sh -c exec pg_isready -U worker -d app
+                - /bin/sh
+                - -c
+                - pg_isready -U worker -d app
             failureThreshold: 3
             initialDelaySeconds: 1
             periodSeconds: 10
-            timeoutSeconds: 5
+            timeoutSeconds: 2
           readinessProbe:
             exec:
               command:
-                - /bin/sh -c exec pg_isready -U worker -d app
+                - /bin/sh
+                - -c
+                - pg_isready -U worker -d app
+            failureThreshold: 3
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 2
           name: db
           ports:
             - containerPort: 5432

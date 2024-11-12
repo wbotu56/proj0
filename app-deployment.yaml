@@ -31,16 +31,16 @@ spec:
             - name: DJANGO_DB_PASS
               value: worker
             - name: DJANGO_DB_PORT
-              value: "5432"
+              value: $(DB_SERVICE_PORT)
             - name: DJANGO_DB_USER
               value: worker
             - name: DJANGO_DEBUG
               value: "False"
           image: ghcr.io/wbotu56/proj0-app:latest
           livenessProbe:
-            exec:
-              command:
-                - wget --no-verbose --tries=1 -qO- http://$(APP_SERVICE_HOST):$(APP_SERVICE_PORT)/health/ | grep -c up || exit 1
+            httpGet:
+              path: /health/
+              port: 8000
             failureThreshold: 5
             initialDelaySeconds: 5
             periodSeconds: 10
