@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.34.0 (cbf2835db)
+  labels:
+    io.kompose.service: db
+  name: db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: db
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.34.0 (cbf2835db)
+      labels:
+        io.kompose.service: db
+    spec:
+      containers:
+        - env:
+            - name: POSTGRES_DB
+              value: app
+            - name: POSTGRES_PASSWORD
+              value: worker
+            - name: POSTGRES_USER
+              value: worker
+          image: postgres:17-alpine
+          livenessProbe:
+            exec:
+              command:
+                - /bin/sh -c exec pg_isready -U worker -d app
+            failureThreshold: 3
+            initialDelaySeconds: 1
+            periodSeconds: 10
+            timeoutSeconds: 5
+          readinessProbe:
+            exec:
+              command:
+                - /bin/sh -c exec pg_isready -U worker -d app
+          name: db
+          ports:
+            - containerPort: 5432
+              protocol: TCP
+      restartPolicy: Always
