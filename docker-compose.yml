@@ -16,7 +16,7 @@ services:
       retries: 3
       start_period: 1s
   app:
-    image: ghcr.io/wbotu56/proj0-app:latest
+    image: ghcr.io/wbotu56/proj0-app:${TAG:-latest}
     build:
       context: .
       dockerfile: app.Dockerfile
