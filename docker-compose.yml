@@ -5,7 +5,7 @@ services:
     image: postgres:17-alpine
     environment:
       POSTGRES_DB: app
-      POSTGRES_PASSWORD: /run/secrets/db_password
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-worker}
       POSTGRES_USER: worker
     volumes:
       - pgdata:/var/lib/postgresql/data:rw
@@ -23,7 +23,7 @@ services:
     environment:
       DJANGO_DB_HOST: db
       DJANGO_DB_NAME: app
-      DJANGO_DB_PASS: /run/secrets/db_password
+      DJANGO_DB_PASS: ${POSTGRES_PASSWORD:-worker}
       DJANGO_DB_PORT: "5432"
       DJANGO_DB_USER: worker
       DJANGO_DEBUG: "False"
@@ -45,7 +45,3 @@ services:
 volumes:
   pgdata:
   mediauploads:
-
-secrets:
-  db_password:
-    environment: POSTGRES_PASSWORD
