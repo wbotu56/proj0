@@ -18,4 +18,6 @@
 * ```bash
   docker compose down
   docker volume rm proj0_pgdata
+  # or
+  docker compose down -v
   ```
